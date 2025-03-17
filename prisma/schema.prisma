@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Club {
+  id        Int    @id @default(autoincrement())
+  name      String @unique
+  lastTitle LastTitle?
+}
+
+model LastTitle {
+  id          Int    @id @default(autoincrement())
+  name        String
+  season      String
+  date        String
+
+  club        Club @relation(fields: [clubId], references: [id])
+  clubId      Int  @unique
+}
