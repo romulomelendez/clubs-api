@@ -1,8 +1,8 @@
 {
-  "name": "backend-flatimer",
+  "name": "clubs-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main/server.ts",
   "scripts": {
     "dev": "tsx ./src/main/server.ts"
   },

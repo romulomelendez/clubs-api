@@ -13,13 +13,15 @@ datasource db {
 model Club {
   id        Int    @id @default(autoincrement())
   name      String @unique
+  badge     String
+  color     String?
   lastTitle LastTitle?
 }
 
 model LastTitle {
   id          Int    @id @default(autoincrement())
   name        String
-  season      String
+  season      String?
   date        String
 
   club        Club @relation(fields: [clubId], references: [id])

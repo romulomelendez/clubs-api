@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateClubRepositoryInterface } from "../../data/protocols"
+
 import { Club } from "../../domain/models"
+import { CreateClubRepositoryInterface } from "../../data/protocols"
 
 export class CreateClubRepository implements CreateClubRepositoryInterface {
     //@ts-ignore
@@ -9,26 +10,33 @@ export class CreateClubRepository implements CreateClubRepositoryInterface {
         const prisma = new PrismaClient()
         const {
             name: clubName,
+            badge,
+            color,
             lastTitle: {
-                name: titleName,
+                name: lastTitleName,
                 season,
                 date
             }
         } = params
 
-        const clubCreated = await prisma.club.create({
+        const club = await prisma.club.create({
             data: {
                 name: clubName,
+                badge,
+                color,
                 lastTitle: {
                     create: {
-                        name: titleName,
+                        name: lastTitleName,
                         season,
-                        date 
+                        date
                     }
                 }
             }
         })
 
-        return clubCreated
+        if(!club)
+            return
+
+        return club
     }
 }

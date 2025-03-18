@@ -7,6 +7,6 @@ export interface CreateClubRepositoryInterface {
 }
 
 export namespace CreateClubRepositoryInterface {
-  export type Params = string
+  export type Params = Club
   export type Result = Club | null
 }
