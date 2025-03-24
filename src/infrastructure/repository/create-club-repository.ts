@@ -1,23 +1,22 @@
 import { PrismaClient } from "@prisma/client"
 
-import { Club } from "../../domain/models"
 import { CreateClubRepositoryInterface } from "../../data/protocols"
+import { Club } from "../../domain/models"
 
 export class CreateClubRepository implements CreateClubRepositoryInterface {
     //@ts-ignore
-    execute = async (params: Club) => {
+    execute = async ({
+        name: clubName,
+        badge,
+        color,
+        lastTitle: {
+            name: lastTitleName,
+            season,
+            date
+        }
+    }: Club) => {
 
         const prisma = new PrismaClient()
-        const {
-            name: clubName,
-            badge,
-            color,
-            lastTitle: {
-                name: lastTitleName,
-                season,
-                date
-            }
-        } = params
 
         const club = await prisma.club.create({
             data: {
@@ -34,7 +33,7 @@ export class CreateClubRepository implements CreateClubRepositoryInterface {
             }
         })
 
-        if(!club)
+        if (!club)
             return
 
         return club
