@@ -5,7 +5,7 @@ export class FindClubByNameController implements Controller {
   constructor(
     private readonly findClubByNameRepository: FindClubByNameRepository
   ) {}
-
+  // @ts-ignore
   handle = async (clubName: string) => {
     const club = await this.findClubByNameRepository.execute(clubName)
 

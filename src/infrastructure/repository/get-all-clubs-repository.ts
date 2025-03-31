@@ -9,7 +9,7 @@ export class GetAllClubsRepository implements GetAllClubsRepositoryInterface {
 
         const allClubs = await prisma.club.findMany({
             include: {
-                lastTitle: true
+                lastTitles: true
             }
         })
         return allClubs

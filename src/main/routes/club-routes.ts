@@ -5,7 +5,7 @@ import { FindClubByNameController, GetAllClubsController, CreateClubController }
 
 export const clubRoutes = Router()
 
-clubRoutes.get("/api/club/name/:clubName",
+clubRoutes.get("/api/admin/club/:clubName",
   async ({ params: { clubName } }: Request, res: Response) => {
   
     const findClubByNameRepository = new FindClubByNameRepository()
@@ -17,7 +17,7 @@ clubRoutes.get("/api/club/name/:clubName",
   }
 )
 
-clubRoutes.get("/api/club/all",
+clubRoutes.get("/api/admin/clubs",
   async (_: Request, res: Response) => {
 
     const getAllClubsRepository = new GetAllClubsRepository()
@@ -29,7 +29,7 @@ clubRoutes.get("/api/club/all",
   }
 )
 
-clubRoutes.post("/admin/api/club/create", async ({ body: clubData }: Request, res: Response) => {
+clubRoutes.post("/api/admin/club/create", async ({ body: clubData }: Request, res: Response) => {
 
   const createClubRepository = new CreateClubRepository()
   const createClubController = new CreateClubController(createClubRepository)

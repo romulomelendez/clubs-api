@@ -13,7 +13,7 @@ export class FindClubByNameRepository implements FindClubByNameRepositoryInterfa
         name: clubName
       },
       include: {
-        lastTitle: true
+        lastTitles: true
       }
     })
 

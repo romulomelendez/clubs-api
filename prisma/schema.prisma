@@ -25,7 +25,7 @@ model Title {
   date   String
 
   club   Club @relation(fields: [clubId], references: [id])
-  clubId Int  @unique
+  clubId Int
 }
 
 model Admin {

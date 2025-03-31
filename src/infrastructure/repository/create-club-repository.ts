@@ -8,12 +8,8 @@ export class CreateClubRepository implements CreateClubRepositoryInterface {
     execute = async ({
         name: clubName,
         badge,
-        color,
-        lastTitle: {
-            name: lastTitleName,
-            season,
-            date
-        }
+        colors,
+        lastTitles
     }: Club) => {
 
         const prisma = new PrismaClient()
@@ -22,16 +18,19 @@ export class CreateClubRepository implements CreateClubRepositoryInterface {
             data: {
                 name: clubName,
                 badge,
-                color,
-                lastTitle: {
-                    create: {
+                colors,
+                lastTitles: {
+                    create: lastTitles.map(({ name: lastTitleName, season, date }) => ({
                         name: lastTitleName,
                         season,
                         date
-                    }
+                    }))
                 }
+            },
+            include: {
+                lastTitles: true
             }
-        })
+        })  
 
         if (!club)
             return
