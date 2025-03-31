@@ -27,3 +27,9 @@ model Title {
   club   Club @relation(fields: [clubId], references: [id])
   clubId Int  @unique
 }
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String
+  password String
+}
