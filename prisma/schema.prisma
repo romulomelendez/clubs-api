@@ -11,19 +11,19 @@ datasource db {
 }
 
 model Club {
-  id        Int    @id @default(autoincrement())
-  name      String @unique
-  badge     String
-  color     String?
-  lastTitle LastTitle?
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  badge      String
+  colors     String[]
+  lastTitles Title[]
 }
 
-model LastTitle {
-  id          Int    @id @default(autoincrement())
-  name        String
-  season      String?
-  date        String
+model Title {
+  id     Int     @id @default(autoincrement())
+  name   String
+  season String?
+  date   String
 
-  club        Club @relation(fields: [clubId], references: [id])
-  clubId      Int  @unique
+  club   Club @relation(fields: [clubId], references: [id])
+  clubId Int  @unique
 }
