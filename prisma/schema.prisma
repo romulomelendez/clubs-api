@@ -24,7 +24,7 @@ model Title {
   season String?
   date   String
 
-  club   Club @relation(fields: [clubId], references: [id])
+  club   Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId Int
 }
 
