@@ -1,7 +1,7 @@
-import { Request, Response, Router } from "express"
+import { request, Request, Response, Router } from "express"
 
-import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository } from "../../infrastructure/repository"
-import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController } from "../../presentation/controllers"
+import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository, DeleteClubRepository } from "../../infrastructure/repository"
+import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController, DeleteClubController } from "../../presentation/controllers"
 
 export const route = Router()
 
@@ -49,6 +49,19 @@ route.put("/api/admin/club/:clubName", async ({ body: clubData }: Request, res: 
   const updateClubController = new UpdateClubController(updateClubRepository)
 
   const { statusCode, body } = await updateClubController.handle(clubData)
+
+  res.status(statusCode).json(body)
+})
+
+// Delete club
+route.delete("/api/admin/club/:clubId", async ({ params }: Request, res: Response) => {
+
+  const { clubId } = params
+
+  const deleteClubRepository = new DeleteClubRepository()
+  const deleteClubController = new DeleteClubController(deleteClubRepository)
+
+  const { statusCode, body } = await deleteClubController.handle(+clubId)
 
   res.status(statusCode).json(body)
 })

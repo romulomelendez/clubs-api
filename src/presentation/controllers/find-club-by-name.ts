@@ -7,9 +7,11 @@ export class FindClubByNameController implements Controller {
   ) {}
   // @ts-ignore
   handle = async (clubName: string) => {
+    
     const club = await this.findClubByNameRepository.execute(clubName)
 
-    if (!club) return HttpHelper.NOT_FOUND()
+    if (!club)
+      return HttpHelper.NOT_FOUND()
 
     return HttpHelper.OK(club)
   }
