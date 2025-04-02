@@ -1,11 +1,12 @@
 import { Request, Response, Router } from "express"
 
-import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository } from "../../infrastructure/repository"
-import { FindClubByNameController, GetAllClubsController, CreateClubController } from "../../presentation/controllers"
+import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository } from "../../infrastructure/repository"
+import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController } from "../../presentation/controllers"
 
-export const clubRoutes = Router()
+export const route = Router()
 
-clubRoutes.get("/api/admin/club/:clubName",
+// Get one club
+route.get("/api/admin/club/:clubName",
   async ({ params: { clubName } }: Request, res: Response) => {
   
     const findClubByNameRepository = new FindClubByNameRepository()
@@ -17,7 +18,8 @@ clubRoutes.get("/api/admin/club/:clubName",
   }
 )
 
-clubRoutes.get("/api/admin/clubs",
+// List all clubs
+route.get("/api/admin/clubs",
   async (_: Request, res: Response) => {
 
     const getAllClubsRepository = new GetAllClubsRepository()
@@ -29,12 +31,24 @@ clubRoutes.get("/api/admin/clubs",
   }
 )
 
-clubRoutes.post("/api/admin/club/create", async ({ body: clubData }: Request, res: Response) => {
+// Create club
+route.post("/api/admin/club/create", async ({ body: clubData }: Request, res: Response) => {
 
   const createClubRepository = new CreateClubRepository()
   const createClubController = new CreateClubController(createClubRepository)
 
   const { statusCode, body } = await createClubController.handle(clubData)
+
+  res.status(statusCode).json(body)
+})
+
+// Update club
+route.put("/api/admin/club/:clubName", async ({ body: clubData }: Request, res: Response) => {
+
+  const updateClubRepository = new UpdateClubRepository()
+  const updateClubController = new UpdateClubController(updateClubRepository)
+
+  const { statusCode, body } = await updateClubController.handle(clubData)
 
   res.status(statusCode).json(body)
 })
