@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express"
 
 import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository, DeleteClubRepository, LoginRepository } from "../../infrastructure/repository"
 import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController, DeleteClubController, LoginController } from "../../presentation/controllers"
+import { AuthenticateAdmin } from "../../infrastructure/http/middleware"
 
 export const route = Router()
 
@@ -17,8 +18,7 @@ route.post("/api/admin/login", async ({ body: loginData }: Request, res: Respons
 })
 
 // Get one club
-route.get("/api/admin/club/:clubName",
-  async ({ params: { clubName } }: Request, res: Response) => {
+route.get("/api/admin/club/:clubName", AuthenticateAdmin, async ({ params: { clubName } }: Request, res: Response) => {
   
     const findClubByNameRepository = new FindClubByNameRepository()
     const findClubByNameController = new FindClubByNameController(findClubByNameRepository)
@@ -30,8 +30,7 @@ route.get("/api/admin/club/:clubName",
 )
 
 // List all clubs
-route.get("/api/admin/clubs",
-  async (_: Request, res: Response) => {
+route.get("/api/admin/clubs", AuthenticateAdmin, async (_: Request, res: Response) => {
 
     const getAllClubsRepository = new GetAllClubsRepository()
     const getAllClubsController = new GetAllClubsController(getAllClubsRepository)
@@ -43,7 +42,7 @@ route.get("/api/admin/clubs",
 )
 
 // Create club
-route.post("/api/admin/club/create", async ({ body: clubData }: Request, res: Response) => {
+route.post("/api/admin/club/create", AuthenticateAdmin, async ({ body: clubData }: Request, res: Response) => {
 
   const createClubRepository = new CreateClubRepository()
   const createClubController = new CreateClubController(createClubRepository)
@@ -54,7 +53,7 @@ route.post("/api/admin/club/create", async ({ body: clubData }: Request, res: Re
 })
 
 // Update club
-route.put("/api/admin/club/:clubName", async ({ body: clubData }: Request, res: Response) => {
+route.put("/api/admin/club/:clubName", AuthenticateAdmin, async ({ body: clubData }: Request, res: Response) => {
 
   const updateClubRepository = new UpdateClubRepository()
   const updateClubController = new UpdateClubController(updateClubRepository)
@@ -65,7 +64,7 @@ route.put("/api/admin/club/:clubName", async ({ body: clubData }: Request, res: 
 })
 
 // Delete club
-route.delete("/api/admin/club/:clubId", async ({ params }: Request, res: Response) => {
+route.delete("/api/admin/club/:clubId", AuthenticateAdmin, async ({ params }: Request, res: Response) => {
 
   const { clubId } = params
 
