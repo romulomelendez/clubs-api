@@ -1,9 +1,21 @@
 import { request, Request, Response, Router } from "express"
 
-import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository, DeleteClubRepository } from "../../infrastructure/repository"
-import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController, DeleteClubController } from "../../presentation/controllers"
+import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository, DeleteClubRepository, LoginRepository } from "../../infrastructure/repository"
+import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController, DeleteClubController, LoginController } from "../../presentation/controllers"
 
 export const route = Router()
+
+
+// Login
+route.post("/api/admin/login", async ({ body: loginData }: Request, res: Response) => {
+
+  const loginRepository = new LoginRepository()
+  const loginController = new LoginController(loginRepository)
+
+  const { statusCode, body: token } = await loginController.handle(loginData)
+  
+  res.status(statusCode).json(token)
+})
 
 // Get one club
 route.get("/api/admin/club/:clubName",
