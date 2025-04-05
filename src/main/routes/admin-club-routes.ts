@@ -1,10 +1,9 @@
-import { request, Request, Response, Router } from "express"
+import { Request, Response, Router } from "express"
 
 import { FindClubByNameRepository, GetAllClubsRepository, CreateClubRepository, UpdateClubRepository, DeleteClubRepository, LoginRepository } from "../../infrastructure/repository"
 import { FindClubByNameController, GetAllClubsController, CreateClubController, UpdateClubController, DeleteClubController, LoginController } from "../../presentation/controllers"
 
 export const route = Router()
-
 
 // Login
 route.post("/api/admin/login", async ({ body: loginData }: Request, res: Response) => {
