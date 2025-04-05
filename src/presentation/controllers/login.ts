@@ -15,7 +15,7 @@ export class LoginController implements Controller {
         const loginToken = await this.loginRepository.execute(params)
 
         if(!loginToken)
-            return HttpHelper.NOT_FOUND()
+            return HttpHelper.NOT_AUTHORIZED()
 
         return HttpHelper.OK(loginToken)
     }
