@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "../../presentation/helpers"
 
 import { CreateClubRepositoryInterface } from "../../data/protocols"
 import { Club } from "../../domain/models"
@@ -11,8 +11,6 @@ export class CreateClubRepository implements CreateClubRepositoryInterface {
         colors,
         lastTitles
     }: Club) => {
-
-        const prisma = new PrismaClient()
 
         const club = await prisma.club.create({
             data: {

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "../../presentation/helpers"
 
 import { UpdateClubRepositoryInterface } from "../../data/protocols"
 import { Club } from "../../domain/models"
@@ -11,8 +11,6 @@ export class UpdateClubRepository implements UpdateClubRepositoryInterface {
         colors,
         lastTitles
     }: Club) => {
-
-        const prisma = new PrismaClient()
 
         const club = await prisma.club.update({
             where: { name: clubName },

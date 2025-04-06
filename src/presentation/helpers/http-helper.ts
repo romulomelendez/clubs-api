@@ -14,8 +14,8 @@ export class HttpHelper {
   })
 
   static NOT_AUTHORIZED = <T>(): HttpResponse<T> => ({
-     statusCode: 401,
-     message: "Not Authorized"
+    statusCode: 401,
+    message: "Not Authorized"
   })
 
   static NOT_FOUND = <T>(): HttpResponse<T> => ({

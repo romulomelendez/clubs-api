@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "../../presentation/helpers"
+
 import { DeleteClubRepositoryInterface } from "../../data/protocols"
 
 export class DeleteClubRepository implements DeleteClubRepositoryInterface {
@@ -6,12 +7,10 @@ export class DeleteClubRepository implements DeleteClubRepositoryInterface {
   // @ts-ignore
   execute = async (clubId: number) => {
 
-    const prisma = new PrismaClient()
-
     const club = await prisma.club.delete({
-        where: {
-            id: clubId
-        }
+      where: {
+        id: clubId
+      }
     })
 
     return club
