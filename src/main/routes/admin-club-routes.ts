@@ -12,9 +12,12 @@ route.post("/api/admin/login", async ({ body: loginData }: Request, res: Respons
   const loginRepository = new LoginRepository()
   const loginController = new LoginController(loginRepository)
 
-  const { statusCode, body: token } = await loginController.handle(loginData)
+  const { statusCode, body: token, message } = await loginController.handle(loginData)
   
-  res.status(statusCode).json(token)
+  res.status(statusCode).json({
+    token,
+    message
+  })
 })
 
 // Get one club
