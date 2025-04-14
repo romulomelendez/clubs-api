@@ -16,8 +16,6 @@ export const AuthenticateAdmin = (req: Request, res: Response, next: NextFunctio
         const decoded = jwt.verify(token, SECRET)
         req.admin = decoded
 
-        console.log("id do admin >>> ", decoded)
-
         next()
     } catch (error) {
         return res.status(401).json({ message: "Token inválido ou expirado." })

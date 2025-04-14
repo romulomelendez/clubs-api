@@ -13,6 +13,6 @@ export class FindClubByNameController implements Controller {
     if (!club)
       return HttpHelper.NOT_FOUND()
 
-    return HttpHelper.OK(club)
+    return HttpHelper.OK(club, "Club Found")
   }
 }
