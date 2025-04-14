@@ -20,8 +20,17 @@ services:
       DATABASE_URL: ${DATABASE_URL}
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: api.dev.dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
       - "5555:5555"
-    # command: npx prisma studio
+    command: npx prisma studio
     depends_on:
       - db
 
