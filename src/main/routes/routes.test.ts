@@ -39,12 +39,12 @@ describe("GET /api/admin/club/:clubName", () => {
     let token: string
 
     beforeAll( async () => {
-        
+        console.log("TEST ADMIN CREDENTIALS >>> ", process.env.TEST_ADMIN_USERNAME, process.env.TEST_ADMIN_PASSWORD)
         const loginResponse = await request(app)
             .post("/api/admin/login")
             .send({
-                username: process.env.ADMIN_USERNAME,
-                password: process.env.ADMIN_PASSWORD
+                username: process.env.TEST_ADMIN_USERNAME,
+                password: process.env.TEST_ADMIN_PASSWORD
             })        
         token = loginResponse.body.token
     })
