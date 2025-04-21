@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm i -g pnpm
+RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
 
-RUN pnpm i --frozen-lockfile
+RUN pnpm i
 
 RUN pnpm i @prisma/client --save-dev
 
