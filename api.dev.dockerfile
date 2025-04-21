@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm i -g pnpm
 
-RUN pnpm install --no-frozen-lockfile
+RUN pnpm i --frozen-lockfile
 
 RUN pnpm i @prisma/client --save-dev
 
