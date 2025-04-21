@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
+RUN npm i -g pnpm@10.8.0
 
 RUN pnpm i
 
