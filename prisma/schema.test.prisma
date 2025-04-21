@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multischema"]
+  output = "./prisma/generated-test"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_TEST_URL")
+  schemas = ["test"]
+}
+
+model Club {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  badge      String
+  colors     String[]
+  lastTitles Title[]
+
+  @@schema("test")
+}
+
+model Title {
+  id     Int     @id @default(autoincrement())
+  name   String
+  season String?
+  date   String
+
+  club   Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  clubId Int
+
+  @@schema("test")
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+
+  @@schema("test")
+}

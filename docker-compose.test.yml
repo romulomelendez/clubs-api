@@ -1,0 +1,44 @@
+services:
+  db-test:
+    image: postgres
+    env_file:
+      - .env.test
+    environment:
+      POSTGRES_USER: ${DB_TEST_USER}
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
+      POSTGRES_DB: ${DB_TEST_NAME}
+    ports:
+      - "5433:5432"
+    expose:
+      - "5433"
+    volumes:
+      - clubsApiTest:/var/lib/postgresql/data
+
+  # test-runner:
+  #   build:
+  #     context: .
+  #     dockerfile: api.test.dockerfile
+  #   environment:
+  #     DATABASE_URL: ${DATABASE_TEST_URL}
+  #   ports:
+  #     - "3001:3000"
+  #   command: pnpm test
+  #   depends_on:
+  #     - db-test
+    
+  prisma-studio-test:
+    build:
+      context: .
+      dockerfile: api.test.dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_TEST_URL}
+    ports:
+      - "5556:5555"
+    expose:
+      - "5556"
+    command: npx prisma studio
+    depends_on:
+      - db-test
+
+volumes:
+  clubsApiTest:
