@@ -2,13 +2,11 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
 RUN npm i -g pnpm
 
 RUN pnpm i
-
-COPY . .
 
 RUN pnpm i @prisma/client --save-dev
 
