@@ -7,4 +7,4 @@ until npx prisma migrate dev; do
 done
 
 # Init server
-pnpm dev
+npm dev

@@ -4,11 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm i -g pnpm@10.8.0
+RUN npm i
 
-RUN pnpm i
-
-RUN pnpm i @prisma/client --save-dev
+RUN npm i @prisma/client --save-dev
 
 RUN npx prisma generate
 
